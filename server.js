@@ -1,14 +1,13 @@
 import express from "express";
 import ejs from "ejs";
-import process from "process";
 import path from "path";
+import ejsMate from "ejs-mate";
+import {__dirname} from "./utils/utility.js";
 const app=express();
-app.use(express.static(path.join(process.cwd(),'views')));
-app.use(express.static(path.join(process.cwd(),'public')));
-// app.use('content-type','text/html');
-//koi jaruruat nahi hai '/' ko folder ke aage add karne ke express apne aap kar dega
-app.set("view engine","ejs");
-app.set("views", path.join(process.cwd(),"views"));
+app.set("views", path.join(__dirname,"..","views"));
+app.set("view engine", "ejs");
+app.engine("ejs", ejsMate);
+app.use(express.static("public"));
 
 app.get('/',function(req,res,next){
     res.send("welcome to home page.")
